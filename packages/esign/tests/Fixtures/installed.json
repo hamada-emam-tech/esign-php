@@ -1,0 +1,6 @@
+{
+    "packages": [
+        { "name": "acme/unrelated", "extra": {} },
+        { "name": "hamada-emam-tech/esign-sadq", "extra": { "esign": { "providers": { "sadq": "HamadaEmamTech\\Esign\\Tests\\Fixtures\\DummyFactory" } } } }
+    ]
+}

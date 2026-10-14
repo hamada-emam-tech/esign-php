@@ -1,0 +1,48 @@
+name: Split packages
+
+# Pushes each packages/<name> folder to its own read-only repo, so each one can be
+# published on Packagist on its own. The target repos must exist first and the
+# SPLIT_TOKEN secret needs write access to them.
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+jobs:
+  split:
+    # Off until the SPLIT_TOKEN secret exists: set the repo variable SPLIT_ENABLED=true to turn it on.
+    if: vars.SPLIT_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - { folder: esign, repo: esign }
+          # - { folder: esign-sadq, repo: esign-sadq }   # enable when the SADQ driver lands
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - if: "!startsWith(github.ref, 'refs/tags/')"
+        uses: danharrin/monorepo-split-github-action@v2.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.SPLIT_TOKEN }}
+        with:
+          package_directory: packages/${{ matrix.package.folder }}
+          repository_organization: hamada-emam-tech
+          repository_name: ${{ matrix.package.repo }}
+          branch: main
+          user_name: Hamada Emam
+          user_email: hamada.emam.tech@gmail.com
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: danharrin/monorepo-split-github-action@v2.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.SPLIT_TOKEN }}
+        with:
+          tag: ${GITHUB_REF#refs/tags/}
+          package_directory: packages/${{ matrix.package.folder }}
+          repository_organization: hamada-emam-tech
+          repository_name: ${{ matrix.package.repo }}
+          branch: main
+          user_name: Hamada Emam
+          user_email: hamada.emam.tech@gmail.com

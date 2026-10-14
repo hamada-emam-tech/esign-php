@@ -1,0 +1,24 @@
+{
+    "name": "hamada-emam-tech/esign",
+    "description": "One interface for e-signature providers in Saudi Arabia and beyond. Install the core, then only the providers you use (SADQ, Signit, emdha, DocuSign...).",
+    "keywords": ["esignature", "e-signature", "digital-signature", "saudi", "nafath", "sadq", "signit", "emdha", "docusign"],
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*"
+    },
+    "suggest": {
+        "hamada-emam-tech/esign-sadq": "SADQ (Saudi): envelopes with Nafath signing",
+        "hamada-emam-tech/esign-signit": "Signit (Saudi, DGA-licensed TSP)",
+        "hamada-emam-tech/esign-emdha": "emdha (Saudi, DGA-licensed TSP, National Root CA)",
+        "hamada-emam-tech/esign-docusign": "DocuSign (global)"
+    },
+    "autoload": {
+        "psr-4": { "HamadaEmamTech\\Esign\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "HamadaEmamTech\\Esign\\Tests\\": "tests/" }
+    },
+    "minimum-stability": "stable"
+}
