@@ -68,6 +68,6 @@ $fake->assertSent(fn ($e) => $e->signers[0]->nationalId === '1012345678');
 | `hamada-emam-tech/esign-emdha` | emdha (Saudi, DGA-licensed TSP) | planned |
 | `hamada-emam-tech/esign-docusign` | DocuSign (global) | planned |
 
-Want to add your own? See [writing a provider](../../docs/writing-a-provider.md).
+Want to add your own? See [writing a provider](https://github.com/hamada-emam-tech/esign-php/blob/main/docs/writing-a-provider.md).
 
 Framework-agnostic: PHP 8.2+, no framework dependency.
