@@ -7,6 +7,9 @@
             <directory>packages/*/tests</directory>
         </testsuite>
     </testsuites>
+    <groups>
+        <exclude><group>live</group></exclude>
+    </groups>
     <source>
         <include><directory>packages/*/src</directory></include>
     </source>

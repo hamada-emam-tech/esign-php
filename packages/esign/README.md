@@ -4,13 +4,13 @@ One interface for e-signature providers. Install the core, then only the provide
 
 ```bash
 composer require hamada-emam-tech/esign          # the core: contracts + a fake provider for tests
-composer require hamada-emam-tech/esign-sadq     # add SADQ (coming soon)
+vendor/bin/esign add sadq                         # add SADQ (runs composer require hamada-emam-tech/esign-sadq)
 composer require hamada-emam-tech/esign-signit   # add Signit, and so on (planned)
 ```
 
 Installing a provider package is enough. The core finds it automatically.
 
-> **Status:** v0.1 ships the core and the `fake` provider. Provider packages are being built one at a time, SADQ first. You can already write your own with `extend()` (see [writing a provider](https://github.com/hamada-emam-tech/esign-php/blob/main/docs/writing-a-provider.md)).
+> **Status:** v0.2 ships the core, the `fake` provider, the `vendor/bin/esign` command, and the SADQ driver. More providers follow one at a time. You can already write your own with `extend()` (see [writing a provider](https://github.com/hamada-emam-tech/esign-php/blob/main/docs/writing-a-provider.md)).
 
 ## Use it
 
@@ -35,6 +35,16 @@ $envelope = new Envelope(
 $sent = $esign->send($envelope);                        // default provider
 $sent = $esign->provider('signit')->send($envelope);    // any installed provider
 ```
+
+## Add and remove providers
+
+```bash
+vendor/bin/esign providers        # every provider, and which are installed
+vendor/bin/esign add sadq         # runs composer require hamada-emam-tech/esign-sadq
+vendor/bin/esign remove sadq      # runs composer remove
+```
+
+It only runs Composer, so you can also manage the packages with Composer directly.
 
 ## Webhooks
 
@@ -63,10 +73,12 @@ $fake->assertSent(fn ($e) => $e->signers[0]->nationalId === '1012345678');
 
 | Package | Provider | Status |
 |---|---|---|
-| `hamada-emam-tech/esign-sadq` | SADQ (Saudi) | in progress |
+| `hamada-emam-tech/esign-sadq` | SADQ (Saudi) | available: `vendor/bin/esign add sadq` |
 | `hamada-emam-tech/esign-signit` | Signit (Saudi, DGA-licensed TSP) | planned |
 | `hamada-emam-tech/esign-emdha` | emdha (Saudi, DGA-licensed TSP) | planned |
 | `hamada-emam-tech/esign-docusign` | DocuSign (global) | planned |
+
+Full roadmap, with Zoho Sign, Dropbox Sign, UAE PASS and CSC providers: [providers](https://github.com/hamada-emam-tech/esign-php/blob/main/docs/providers.md).
 
 Want to add your own? See [writing a provider](https://github.com/hamada-emam-tech/esign-php/blob/main/docs/writing-a-provider.md).
 

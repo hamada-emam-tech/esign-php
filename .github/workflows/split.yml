@@ -18,7 +18,7 @@ jobs:
       matrix:
         package:
           - { folder: esign, repo: esign }
-          # - { folder: esign-sadq, repo: esign-sadq }   # enable when the SADQ driver lands
+          - { folder: esign-sadq, repo: esign-sadq }
     steps:
       - uses: actions/checkout@v4
         with:

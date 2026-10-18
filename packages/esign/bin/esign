@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+// Composer 2.2+ bin proxies tell us where the autoloader is. Fall back to the usual
+// layouts: installed as vendor/hamada-emam-tech/esign, or run from this repo.
+$autoload = $GLOBALS['_composer_autoload_path'] ?? null;
+foreach ([$autoload, __DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../vendor/autoload.php'] as $candidate) {
+    if (is_string($candidate) && is_file($candidate)) {
+        require $candidate;
+        break;
+    }
+}
+
+if (! class_exists(HamadaEmamTech\Esign\Console\Application::class)) {
+    fwrite(STDERR, "esign: could not find Composer's autoloader. Run composer install first.\n");
+    exit(1);
+}
+
+exit((new HamadaEmamTech\Esign\Console\Application())->run(array_slice($argv, 1)));

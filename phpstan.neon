@@ -1,0 +1,8 @@
+parameters:
+    level: 8
+    paths:
+        - packages
+    ignoreErrors:
+        # Optional HTTP clients, used only when the consumer has them installed.
+        - message: '#(Http\\Discovery\\Psr17FactoryDiscovery|Symfony\\Component\\HttpClient\\Psr18Client)#'
+          path: packages/esign-sadq/src/SadqFactory.php

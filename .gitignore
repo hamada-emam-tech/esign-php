@@ -2,3 +2,6 @@ vendor/
 .phpunit.cache/
 composer.lock
 PLAN.md
+.env
+.env.*
+!.env.example

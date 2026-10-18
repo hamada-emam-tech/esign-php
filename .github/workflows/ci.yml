@@ -19,4 +19,4 @@ jobs:
           coverage: none
       - run: composer install --no-interaction --prefer-dist
       - run: vendor/bin/phpunit
-      - run: vendor/bin/phpstan analyse --level=8 packages --no-progress
+      - run: vendor/bin/phpstan analyse --no-progress

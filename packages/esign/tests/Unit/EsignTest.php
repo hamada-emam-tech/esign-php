@@ -40,12 +40,32 @@ final class EsignTest extends TestCase
     }
 
     #[Test]
-    public function a_missing_provider_tells_you_which_package_to_install(): void
+    public function a_missing_released_provider_tells_you_how_to_install_it(): void
+    {
+        $esign = new Esign(['default' => 'sadq', 'providers' => ['sadq' => []]], new ProviderRegistry('/nonexistent/installed.json'));
+
+        $this->expectException(ProviderNotInstalled::class);
+        $this->expectExceptionMessage('Run: vendor/bin/esign add sadq (or: composer require hamada-emam-tech/esign-sadq)');
+        $esign->provider();
+    }
+
+    #[Test]
+    public function a_planned_provider_says_it_is_not_released_yet(): void
     {
         $esign = new Esign(['default' => 'signit', 'providers' => ['signit' => []]], $this->registry());
 
         $this->expectException(ProviderNotInstalled::class);
-        $this->expectExceptionMessage('composer require hamada-emam-tech/esign-signit');
+        $this->expectExceptionMessage('planned but not released yet');
+        $esign->provider();
+    }
+
+    #[Test]
+    public function an_unknown_provider_lists_the_known_ones(): void
+    {
+        $esign = new Esign(['default' => 'nope', 'providers' => ['nope' => []]], $this->registry());
+
+        $this->expectException(ProviderNotInstalled::class);
+        $this->expectExceptionMessageMatches('/Unknown provider "nope". Known providers: fake, sadq, /');
         $esign->provider();
     }
 
