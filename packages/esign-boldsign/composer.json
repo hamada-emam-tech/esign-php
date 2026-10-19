@@ -1,0 +1,28 @@
+{
+    "name": "hamada-emam-tech/esign-boldsign",
+    "description": "BoldSign driver for hamada-emam-tech/esign: e-signature documents over BoldSign API v1, with signed webhooks.",
+    "keywords": ["esign", "e-signature", "boldsign", "webhook"],
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "hamada-emam-tech/esign": "^0.3",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.0"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "A PSR-18 HTTP client, picked up automatically",
+        "symfony/http-client": "A PSR-18 HTTP client, picked up automatically"
+    },
+    "autoload": {
+        "psr-4": { "HamadaEmamTech\\Esign\\BoldSign\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "HamadaEmamTech\\Esign\\BoldSign\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "esign": { "providers": { "boldsign": "HamadaEmamTech\\Esign\\BoldSign\\BoldSignFactory" } }
+    },
+    "minimum-stability": "stable"
+}

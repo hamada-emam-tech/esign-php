@@ -2,6 +2,7 @@ parameters:
     level: 8
     paths:
         - packages
+        - tests
     ignoreErrors:
         # Optional HTTP clients, used only when the consumer has them installed.
         - message: '#(Http\\Discovery\\Psr17FactoryDiscovery|Symfony\\Component\\HttpClient\\Psr18Client)#'

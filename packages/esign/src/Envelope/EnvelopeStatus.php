@@ -13,6 +13,8 @@ enum EnvelopeStatus: string
     case Declined = 'declined';
     case Expired = 'expired';
     case Cancelled = 'cancelled';
+    /** The provider gave up on the envelope (an error on its side, not a decision by a signer). */
+    case Failed = 'failed';
 
     /** No more changes will happen; stop polling. */
     public function isFinal(): bool

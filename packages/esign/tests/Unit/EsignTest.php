@@ -52,7 +52,7 @@ final class EsignTest extends TestCase
     #[Test]
     public function a_planned_provider_says_it_is_not_released_yet(): void
     {
-        $esign = new Esign(['default' => 'signit', 'providers' => ['signit' => []]], $this->registry());
+        $esign = new Esign(['default' => 'emdha', 'providers' => ['emdha' => []]], $this->registry());
 
         $this->expectException(ProviderNotInstalled::class);
         $this->expectExceptionMessage('planned but not released yet');

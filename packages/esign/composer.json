@@ -21,7 +21,9 @@
     "suggest": {
         "hamada-emam-tech/esign-sadq": "SADQ (Saudi): envelopes with Nafath signing. Install with: vendor/bin/esign add sadq",
         "hamada-emam-tech/esign-signit": "Signit (Saudi, DGA-licensed) - planned",
-        "hamada-emam-tech/esign-docusign": "DocuSign (global) - planned"
+        "hamada-emam-tech/esign-docusign": "DocuSign (global) - planned",
+        "psr/http-message": "For Webhook\\Psr7Bridge: handle webhooks from PSR-7 frameworks",
+        "psr/http-factory": "For Webhook\\Psr7Bridge"
     },
     "autoload": {
         "psr-4": {

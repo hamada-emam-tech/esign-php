@@ -69,7 +69,8 @@ final class ConsoleTest extends TestCase
 
         self::assertSame(0, $code);
         self::assertMatchesRegularExpression('/^sadq\s+SADQ\s+KSA\s+available\s+yes$/m', $output);   // installed via the fixture
-        self::assertMatchesRegularExpression('/^docusign\s+DocuSign\s+global\s+planned\s+no$/m', $output);
+        self::assertMatchesRegularExpression('/^emdha\s+emdha\s+KSA\s+planned\s+no$/m', $output);
+        self::assertMatchesRegularExpression('/^docusign\s+DocuSign\s+global\s+available\s+no  -> esign add docusign$/m', $output);
         self::assertMatchesRegularExpression('/^fake\s+.*built-in\s+yes$/m', $output);
     }
 
@@ -105,7 +106,7 @@ final class ConsoleTest extends TestCase
     #[Test]
     public function planned_unknown_and_built_in_providers_are_refused_before_composer_runs(): void
     {
-        foreach ([['docusign', 'planned but not released'], ['nope', 'Unknown provider'], ['fake', 'built into the core']] as [$name, $message]) {
+        foreach ([['emdha', 'planned but not released'], ['nope', 'Unknown provider'], ['fake', 'built into the core']] as [$name, $message]) {
             [$code, $output] = $this->esign(['add', $name]);
             self::assertSame(1, $code, $name);
             self::assertStringContainsString($message, $output);

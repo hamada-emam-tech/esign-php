@@ -1,0 +1,28 @@
+{
+    "name": "hamada-emam-tech/esign-dropbox",
+    "description": "Dropbox Sign (formerly HelloSign) driver for hamada-emam-tech/esign: e-signature requests over the Dropbox Sign API v3.",
+    "keywords": ["esign", "e-signature", "dropbox-sign", "hellosign", "dropbox"],
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "hamada-emam-tech/esign": "^0.3",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.0"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "A PSR-18 HTTP client, picked up automatically",
+        "symfony/http-client": "A PSR-18 HTTP client, picked up automatically"
+    },
+    "autoload": {
+        "psr-4": { "HamadaEmamTech\\Esign\\Dropbox\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "HamadaEmamTech\\Esign\\Dropbox\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "esign": { "providers": { "dropbox": "HamadaEmamTech\\Esign\\Dropbox\\DropboxFactory" } }
+    },
+    "minimum-stability": "stable"
+}

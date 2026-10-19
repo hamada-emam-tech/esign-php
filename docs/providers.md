@@ -1,8 +1,30 @@
-# Provider roadmap
+# Providers
 
-Each provider is its own package (`hamada-emam-tech/esign-<name>`). Install only the ones you use.
+Each provider is its own package (`hamada-emam-tech/esign-<name>`). Install only the ones you use: `vendor/bin/esign add <name>`.
 
-The order below follows three questions: does the Saudi market need it, can it be built from public API docs, and can it be tested without a paid contract.
+## Available now
+
+| | SADQ | Signit | DocuSign | Zoho Sign | Dropbox Sign | BoldSign | Adobe Sign | UAE PASS |
+|---|---|---|---|---|---|---|---|---|
+| Package | `esign-sadq` | `esign-signit` | `esign-docusign` | `esign-zoho` | `esign-dropbox` | `esign-boldsign` | `esign-adobe` | `esign-uaepass` |
+| Region | KSA | KSA | global | global (incl. KSA data centre) | global | global | global | UAE |
+| Identity methods | email, nafath | email, nafath | email, sms_otp¹ | email, sms_otp | email, sms_otp | email, sms_otp | email, sms_otp | uae_pass |
+| Documents per envelope | 1 | 1 | no limit | 10 | no limit | 25 | no limit | 1 |
+| Signers per envelope | no limit | no limit | no limit | no limit | no limit | no limit | no limit | 1 |
+| Signing order | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Field placement | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Signing links from `send()` | ✓ | ✓ | — | — | — | — | — | ✓ |
+| `remind()` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| `extendDeadline()` | ✓ | — | ✓ | ✓ | — | ✓ | — | — |
+| `details()` (per-signer) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Webhook management via API | ✓ | — | — | — | — | — | ✓ | — |
+| Webhook check | optional token | AES-256 encrypted | HMAC-SHA256 | HMAC-SHA256 | `event_hash` HMAC | HMAC + timestamp | client-ID echo | browser redirect (unsigned) |
+| Cancel | async (minutes) | immediate (void) | immediate | immediate | async | immediate | immediate | deletes the process |
+| Verified against a live account | **✓ sandbox** | production integration's behaviour | docs only | docs only | docs only | docs only | docs only | docs only |
+
+¹ DocuSign SMS needs `phone_auth_workflow_id` in the config.
+
+Every value in this table is declared in code by the driver's `capabilities()`. The core checks envelopes against it before sending, and `$esign->supports(Feature::…)` reads it, so portable code never has to hard-code this table. "Docs only" drivers were built from the provider's official API reference, with tests against a fake server shaped like the documented responses. Each README lists its sources and the points to confirm on a live account.
 
 ## Two kinds of provider
 
@@ -15,8 +37,8 @@ The order below follows three questions: does the Saudi market need it, can it b
 
 | Package | Provider | Identity | API docs | Status |
 |---|---|---|---|---|
-| `esign-sadq` | SADQ | Email, Nafath | Postman collection from SADQ; behaviour verified on the sandbox | **built** (v0.2.0) |
-| `esign-signit` | [Signit](https://signit.sa/en) (DGA-licensed) | Nafath, Absher, Wathq (authorized signatory) | API exists ([help center](https://help.signit.sa/en/migrated/integrations-and-api)). The endpoint reference is on request. | planned |
+| `esign-sadq` | SADQ | Email, Nafath | SADQ's Postman collection; behaviour verified on the sandbox | **available** |
+| `esign-signit` | [Signit](https://signit.sa/en) (DGA-licensed) | Nafath, email | Signit's API collection, plus the request and response handling of a production integration. | **available** |
 
 ## Wave 2: global envelope platforms
 
@@ -24,32 +46,29 @@ All of these have public API references and free developer or test accounts, so 
 
 | Package | Provider | Why | Webhook verification | Status |
 |---|---|---|---|---|
-| `esign-docusign` | DocuSign | The global default and the most-requested integration | Connect, HMAC-SHA256 | planned: build first in this wave |
-| `esign-zoho` | Zoho Sign | Has a Saudi data centre. Advanced signatures in KSA go through emdha, with Nafath verification. | HMAC-SHA256 | planned |
-| `esign-dropbox` | Dropbox Sign (HelloSign) | Simple API, free test mode | `event_hash` HMAC | planned |
-| `esign-adobe` | Adobe Acrobat Sign | Enterprise accounts | Client-ID echo header | on demand |
-| `esign-boldsign` | BoldSign | Low-cost API, free sandbox | HMAC | on demand |
+| `esign-docusign` | DocuSign | The global default and the most-requested integration | Connect, HMAC-SHA256 | **available** |
+| `esign-zoho` | Zoho Sign | Has a Saudi data centre. Advanced signatures in KSA go through emdha, with Nafath verification. | HMAC-SHA256 | **available** |
+| `esign-dropbox` | Dropbox Sign (HelloSign) | Simple API, free test mode | `event_hash` HMAC | **available** |
+| `esign-adobe` | Adobe Acrobat Sign | Enterprise accounts | Client-ID echo header | **available** |
+| `esign-boldsign` | BoldSign | Low-cost API, free sandbox | HMAC | **available** |
 
 ## Wave 3: remote signing with a certificate
 
 | Package | Provider | Region | Notes | Status |
 |---|---|---|---|---|
-| `esign-emdha` | [emdha](https://www.emdha.sa/) | KSA | CST-licensed, DGA-regulated trust provider. Its eSign Authenticator REST API signs with the user's certificate after Nafath or Iqama authentication. It is a CSC member, so check whether it offers the CSC API. API docs come through sales. | planned |
-| `esign-uaepass` | [UAE PASS](https://docs.uaepass.ae) | UAE | Government signing API with public docs. A fully verified account gives a qualified signature. The user must log in with UAE PASS first. Onboarding requires an entity. | planned |
-| `esign-csc` | Any [CSC API](https://cloudsignatureconsortium.org) provider | EU and more | One driver for every provider that speaks the Cloud Signature Consortium standard (most EU qualified trust providers). It shares a CSC client with `einvoice-keysource-csc`. | planned |
+| `esign-emdha` | [emdha](https://www.emdha.sa/) | KSA | CST-licensed, DGA-regulated trust provider. No public API reference. Reachable today through Signit, which accepts emdha as the signature provider per signer. If emdha confirms the CSC API, it becomes a configuration of `esign-csc`. | planned |
+| `esign-uaepass` | [UAE PASS](https://docs.uaepass.ae) | UAE | Government signing API with public docs. A fully verified account gives a qualified signature. The user must log in with UAE PASS first. Onboarding requires an entity. One signer per process, no webhook. | **available** |
+| `esign-csc` | Any [CSC API](https://cloudsignatureconsortium.org) provider | EU and more | One driver for every provider that speaks the Cloud Signature Consortium standard (most EU qualified trust providers). Needs the `RemoteSigner` contract and PAdES signing in PHP (or providers that support `signDoc`). It shares a CSC client with `einvoice-keysource-csc`. | planned |
 
 ## Egypt: research only
 
 Egypt's licensed certification providers (Egypt Trust, MCDR, Fixed Misr and El-Delta, per [ITIDA](https://itida.gov.eg/English/Pages/E-Signature.aspx)) mostly issue **USB tokens**. None of them publishes a remote signing API. Token signing goes through the Signing Agent in `hamada-emam-tech/einvoice`. Revisit this if one of them launches a remote or CSC API.
 
-## Contract work before Wave 3
+## Contract work
 
-The core needs these changes before 1.0. All of them are additive:
+Done in core 0.3: capabilities checked by the core, optional feature interfaces, `EnvelopeRef` routing, `details()`, `handleWebhook()`, the `Failed` status, the `absher`, `wathq` and `uae_pass` identity methods, and browser-redirect completion (UAE PASS). See [architecture](architecture.md).
 
-1. **Capabilities.** Add `supports(Feature)` for signing order, field placement, cancel, resend and each identity method, so an app can check before it sends. Today a provider can only reject at `send()`.
-2. **More identity methods.** `Absher`, `Wathq` (Signit) and `UaePass`, next to `Email`, `SmsOtp` and `Nafath`.
-3. **Redirect completion.** UAE PASS and remote signers return the user to a redirect URL instead of calling a webhook. Add a `parseCallback()` path, or document that the redirect handler calls `status()`.
-4. **A `RemoteSigner` contract** for signing a hash or PDF with a user's certificate (emdha, CSC), separate from envelopes. Two different lifecycles should not share one interface.
+Still to do for CSC providers: a separate `RemoteSigner` contract for signing a hash or PDF with a user's certificate, plus PAdES signing in PHP. Two different lifecycles should not share one interface.
 
 ## Every provider ships with
 

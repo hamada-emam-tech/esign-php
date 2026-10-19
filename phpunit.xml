@@ -5,6 +5,7 @@
     <testsuites>
         <testsuite name="packages">
             <directory>packages/*/tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
     <groups>

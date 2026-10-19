@@ -18,13 +18,28 @@
     "autoload": {
         "psr-4": {
             "HamadaEmamTech\\Esign\\": "packages/esign/src/",
-            "HamadaEmamTech\\Esign\\Sadq\\": "packages/esign-sadq/src/"
+            "HamadaEmamTech\\Esign\\Sadq\\": "packages/esign-sadq/src/",
+            "HamadaEmamTech\\Esign\\DocuSign\\": "packages/esign-docusign/src/",
+            "HamadaEmamTech\\Esign\\Zoho\\": "packages/esign-zoho/src/",
+            "HamadaEmamTech\\Esign\\Dropbox\\": "packages/esign-dropbox/src/",
+            "HamadaEmamTech\\Esign\\BoldSign\\": "packages/esign-boldsign/src/",
+            "HamadaEmamTech\\Esign\\Adobe\\": "packages/esign-adobe/src/",
+            "HamadaEmamTech\\Esign\\UaePass\\": "packages/esign-uaepass/src/",
+            "HamadaEmamTech\\Esign\\Signit\\": "packages/esign-signit/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "HamadaEmamTech\\Esign\\Tests\\": "packages/esign/tests/",
-            "HamadaEmamTech\\Esign\\Sadq\\Tests\\": "packages/esign-sadq/tests/"
+            "HamadaEmamTech\\Esign\\Sadq\\Tests\\": "packages/esign-sadq/tests/",
+            "HamadaEmamTech\\Esign\\DocuSign\\Tests\\": "packages/esign-docusign/tests/",
+            "HamadaEmamTech\\Esign\\Zoho\\Tests\\": "packages/esign-zoho/tests/",
+            "HamadaEmamTech\\Esign\\Dropbox\\Tests\\": "packages/esign-dropbox/tests/",
+            "HamadaEmamTech\\Esign\\BoldSign\\Tests\\": "packages/esign-boldsign/tests/",
+            "HamadaEmamTech\\Esign\\Adobe\\Tests\\": "packages/esign-adobe/tests/",
+            "HamadaEmamTech\\Esign\\UaePass\\Tests\\": "packages/esign-uaepass/tests/",
+            "HamadaEmamTech\\Esign\\Monorepo\\Tests\\": "tests/",
+            "HamadaEmamTech\\Esign\\Signit\\Tests\\": "packages/esign-signit/tests/"
         }
     },
     "scripts": {

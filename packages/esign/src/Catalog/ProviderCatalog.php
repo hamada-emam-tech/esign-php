@@ -23,14 +23,14 @@ final class ProviderCatalog
             // name        label                         region   status
             ['fake',     'Fake (for tests)',             'any',    ProviderStatus::BuiltIn],
             ['sadq',     'SADQ',                         'KSA',    ProviderStatus::Available],
-            ['signit',   'Signit',                       'KSA',    ProviderStatus::Planned],
-            ['docusign', 'DocuSign',                     'global', ProviderStatus::Planned],
-            ['zoho',     'Zoho Sign',                    'global', ProviderStatus::Planned],
-            ['dropbox',  'Dropbox Sign',                 'global', ProviderStatus::Planned],
-            ['adobe',    'Adobe Acrobat Sign',           'global', ProviderStatus::Planned],
-            ['boldsign', 'BoldSign',                     'global', ProviderStatus::Planned],
+            ['signit',   'Signit',                       'KSA',    ProviderStatus::Available],
+            ['docusign', 'DocuSign',                     'global', ProviderStatus::Available],
+            ['zoho',     'Zoho Sign',                    'global', ProviderStatus::Available],
+            ['dropbox',  'Dropbox Sign',                 'global', ProviderStatus::Available],
+            ['adobe',    'Adobe Acrobat Sign',           'global', ProviderStatus::Available],
+            ['boldsign', 'BoldSign',                     'global', ProviderStatus::Available],
             ['emdha',    'emdha',                        'KSA',    ProviderStatus::Planned],
-            ['uaepass',  'UAE PASS',                     'UAE',    ProviderStatus::Planned],
+            ['uaepass',  'UAE PASS',                     'UAE',    ProviderStatus::Available],
             ['csc',      'Cloud Signature Consortium',   'EU+',    ProviderStatus::Planned],
         ]);
     }

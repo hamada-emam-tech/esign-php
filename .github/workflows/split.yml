@@ -19,6 +19,13 @@ jobs:
         package:
           - { folder: esign, repo: esign }
           - { folder: esign-sadq, repo: esign-sadq }
+          - { folder: esign-docusign, repo: esign-docusign }
+          - { folder: esign-zoho, repo: esign-zoho }
+          - { folder: esign-dropbox, repo: esign-dropbox }
+          - { folder: esign-boldsign, repo: esign-boldsign }
+          - { folder: esign-adobe, repo: esign-adobe }
+          - { folder: esign-uaepass, repo: esign-uaepass }
+          - { folder: esign-signit, repo: esign-signit }
     steps:
       - uses: actions/checkout@v4
         with:

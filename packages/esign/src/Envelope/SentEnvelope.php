@@ -14,4 +14,10 @@ final readonly class SentEnvelope
         public array $signingUrls = [],
     ) {
     }
+
+    /** Store (string) $sent->ref() rather than the bare envelope ID. */
+    public function ref(): EnvelopeRef
+    {
+        return new EnvelopeRef($this->provider, $this->envelopeId);
+    }
 }
